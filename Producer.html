@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>WeDo Wear Notifications Simulation</title>
+        <style>
+        </style>
+        
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+            <!-- Optional theme -->
+            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+                <!-- Latest compiled and minified JavaScript -->
+    </head>
+    <body>
+        <center>
+            <div id='message'>
+                <div id='message'>
+                    <h1>Send a message</h1>
+                    <form id='form-message' class='form-horizontal message'>
+                        <div id='fUser' class="form-group">
+                            <div class="col-xs-12 col-sm-offset-1 col-sm-10">
+                                
+                                <fieldset disabled>
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span> Action Number </span>
+                                        <input type="text" class="form-control" id="ID" maxlength="20" placeholder="">
+                                    </div>
+                                </fieldset>
+                                
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                                    </span>
+                                    <input type="text" class="form-control" id="inputUser" maxlength="20" placeholder="Name">
+                                </div>
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
+                                    </span>
+                                    <input type="text" class="form-control" id="inputMessage" maxlength="50" placeholder="Message">
+                                </div>
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-phone" aria-hidden="true"></span>
+                                    </span>
+                                    <input type="text" class="form-control" id="inputPhone" maxlength="9" placeholder="Phone Number">
+                                </div>
+                                <div class="inputGroup">
+                                    <select id="inputAction" name="aa" class='form-control' >
+                                        <option value='wear'>Wear Notification </option>
+                                        <option value='normal' selected>Normal Notification </option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <div id='btn_send' class="btn btn-primary" disabled>
+                                        <span class="glyphicon glyphicon-send" aria-hidden="true"></span>
+                                        Send Message
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </center>
+        
+        
+        
+    </body>
+        <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+                <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+                <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js"></script>
+        <script src="node_modules/socket.io/node_modules/socket.io-client/socket.io.js"></script>
+    <script src="validation.js"></script>
+        
+        
+        <script>
+            function setID(id)
+            {$("#ID").val(id);}
+            
+			//Create socket connection using socket.io
+			var data = 'Dados';
+            socket = io('http://localhost:18282');
+            socket.on('start', function (data) {
+                     console.log('LIGUEI, ID='+data.id);
+                     setID(data.id); // Set ID in the input
+                     });
+            
+            $("#btn_send").click(function () {
+                sendMessage();
+            })
+            
+            function sendMessage(){
+                console.log("A ENVIAR");
+                var result =  {
+                        action : {
+                            actionId: $("#ID").val(),
+                            message: $("#inputMessage").val(),
+                            username: $("#inputUser").val(),
+                            customerPhone: $("#inputPhone").val(),
+                            actionTriggered: $("#inputAction").val()
+                            }
+                        }
+                console.log(result);
+                
+                socket.emit('data',result);
+            }
+    
+            
+            
+            
+            //Create socket connection using socket.io
+            
+            //on button click a json should be created 
+            // result =  {
+            // 	  action : {
+            //				actionId: $ActionIdValue,
+            //				message: $MessageValue,
+            //				username: $NameValue,
+            //				customerPhone: $PhoneNumberValue,
+            //				actionTriggered: $ActionValue
+            //				}
+            //}
+            //		 AND 	
+            //Send json using socket.io api
+            
+        </script>
+</html>       
