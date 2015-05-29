@@ -5,8 +5,8 @@
     var messageCheck=0;
     
     //Regex Phases
-    var nameRegex = /^[A-Za-z ]{2,20}$/;
-    var messageRegex = /^[A-Za-z0-9 \!\?\.\~\^\,\;\:\-\ª\º\'\(\)\$\€\n]{1,50}$/;
+    var nameRegex = /^[A-Za-zÀ-ú ]{2,20}$/;
+    var messageRegex = /^[A-Za-zÀ-ú0-9 \!\?\.\~\^\,\;\:\-\ª\º\'\(\)\$\€\n]{1,50}$/;
     var phoneRegex = /^(91|92|93|96)[0-9]{7}$/;
 
 

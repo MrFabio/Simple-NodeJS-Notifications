@@ -1,75 +1,77 @@
 <html>
 	<head>
 		<title>WeDo Wear Notifications Simulation</title>
-		<style>
-		<!-- define necessary layout css styles -->
-</style>
+		<meta charset="utf8"/>
 	</head>
 	<body style="background:url(i/watch.png) fixed no-repeat;">
-	<div id="notification" class="watch sleep" style="position: absolute; top: 235px; left: 111px; width: 199px; height: 85px;"><strong>Wear Notification</strong></h1>
-	  <p class="notification notification_detail"></p>
-	</div>
-	
-	<script src="node_modules/socket.io/node_modules/socket.io-client/socket.io.js"></script>
-	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
-	<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js"></script>
-    
-	<script>
-			socket = io('http://localhost:18282');
-            socket.on('notification', function (data) {
-                     console.log(data);
-					 console.log("CHEGOU");
-					 //var msg = data.action;
-					 var msg = JSON.parse(data).action;
-                     addMessage(msg);
-					 inScreen(msg);
-					 actual=n_msg;
-					 n_msg++;
-					 
-                     });
-            
-
-
-		//Received Messages
-		var n_msg = 3;
-		var messages = [{"actionId":"0", "username":"João Abreu", "message":"Olá, tudo bem?", "customerPhone":"932214112", "actionTriggered": "wear"},
-						{"actionId":"1", "username":"Cátia Rocha", "message":"Hoje fui às compras", "customerPhone":"914141125", "actionTriggered": "normals"},
-						{"actionId":"1", "username":"Fábio Gomes", "message":"Vamos jogar FIFA!!", "customerPhone":"964331128", "actionTriggered": "wear"}];
-
-		function addMessage(msg){
-			messages[n_msg++] = msg;}
-
-
-		//Print in screen
-		function inScreen(msg){
-			$("#notification").html("<strong>Wear Notification</strong></br>"
-									+ msg["username"] + "</br>"
-									+ msg["message"]);
-		}
-
-
-
-		// 1 - create a new websocket
-		
-		// 2 - Print connection on Browser Console
-
-		// 3 - subscribe 'notification' event using socket io and inside change the page layout to display the notification
-/*var actual=2;
-
-  $("#pre").click(function(){
-   inScreen(messages[actual]);
-   actual--;
-  });
-
-  $("#next").click(function(){
-   inScreen(messages[++actual]);
-  });*/
-	</script>
-	
-	<p id="notification"></p>
+		<div id="notification" class="watch sleep" style="position: absolute; top: 235px; left: 111px; width: 199px; height: 85px;"><strong>Wear Notification</strong></h1>
+		 	<p class="notification notification_detail"></p>
+		</div>
 		
 		<button id='pre'>Previous</button>
-  <button id='next'>Next</button>
-		
+		<button id='next'>Next</button>
+	
+		<p id="notification"></p>
+			
+			
+		<script src="node_modules/socket.io/node_modules/socket.io-client/socket.io.js"></script>
+		<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+		<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js"></script>
+		<script>
+			socket = io('http://localhost:18282');
+            socket.on('notification', function (data) {		
+				console.log(data);
+				console.log("CHEGOU");
+				
+				var msg = JSON.parse(data).action;
+				addMessage(msg);
+				inScreen(msg);
+				
+				nHist=n_msg;
+				n_msg++;
+			});
+            
+			//History Messages Handler
+			function addMessage(msg){
+				messages[n_msg] = msg;}
+	
+			//Print in screen
+			function inScreen(msg){
+				$("#notification").html("<strong>Wear Notification</strong></br>"
+										+ msg["username"] + "</br>"
+										+ msg["message"]);
+			}
+			
+			//Some Pre-History
+			var messages = [{"actionId":"0", "username":"João Abreu", "message":"Olá, tudo bem?", "customerPhone":"932214112", "actionTriggered": "wear"},
+							{"actionId":"1", "username":"Cátia Rocha", "message":"Hoje fui às compras", "customerPhone":"914141125", "actionTriggered": "normals"},
+							{"actionId":"2", "username":"Fábio Gomes", "message":"Vamos jogar FIFA!!", "customerPhone":"964331128", "actionTriggered": "wear"}];
+			var n_msg = 3;
+			var nHist = 2;
+			inScreen(messages[nHist]);
+			
+
+			//Events
+			$("#pre").click(function(){
+				if(nHist <= 0){
+					nHist=-1;
+					$("#notification").html("<strong>Wear Notification</strong></br>NO more notifications!!");	
+				} else {
+					nHist--;
+					inScreen(messages[nHist]);
+				}
+			});
+			
+			$("#next").click(function(){
+				if(nHist >= n_msg-1){
+					nHist=n_msg;
+					$("#notification").html("<strong>Wear Notification</strong></br>NO more notifications!!");
+				}else{
+					nHist++;
+					inScreen(messages[nHist]);
+				}
+					
+			});
+		</script>	
 	</body>
 </html>
