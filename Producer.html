@@ -17,40 +17,49 @@
                 <div id='message'>
                     <h1>Send a message</h1>
                     <form id='form-message' class='form-horizontal message'>
-                        <div id='fUser' class="form-group">
+                        <div class="form-group">
                             <div class="col-xs-12 col-sm-offset-1 col-sm-10">
                                 
-                                <fieldset disabled>
+                                <div class="form-group">
+                                    <fieldset disabled>
+                                        <div class="input-group">
+                                            <span class="input-group-addon">
+                                                <span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span> Action Number </span>
+                                            <input type="text" class="form-control" id="ID" maxlength="20" placeholder="">
+                                        </div>
+                                    </fieldset>
+                                </div>
+                                <div id='fUser' class="form-group">
                                     <div class="input-group">
                                         <span class="input-group-addon">
-                                            <span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span> Action Number </span>
-                                        <input type="text" class="form-control" id="ID" maxlength="20" placeholder="">
+                                            <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                                        </span>
+                                        <input type="text" class="form-control" id="inputUser" maxlength="20" placeholder="Name">
                                     </div>
-                                </fieldset>
-                                
-                                <div class="input-group">
-                                    <span class="input-group-addon">
-                                        <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
-                                    </span>
-                                    <input type="text" class="form-control" id="inputUser" maxlength="20" placeholder="Name">
-                                </div>
-                                <div class="input-group">
-                                    <span class="input-group-addon">
-                                        <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
-                                    </span>
-                                    <input type="text" class="form-control" id="inputMessage" maxlength="50" placeholder="Message">
-                                </div>
-                                <div class="input-group">
-                                    <span class="input-group-addon">
-                                        <span class="glyphicon glyphicon-phone" aria-hidden="true"></span>
-                                    </span>
-                                    <input type="text" class="form-control" id="inputPhone" maxlength="9" placeholder="Phone Number">
-                                </div>
-                                <div class="inputGroup">
-                                    <select id="inputAction" name="aa" class='form-control' >
-                                        <option value='wear'>Wear Notification </option>
-                                        <option value='normal' selected>Normal Notification </option>
-                                    </select>
+                                </div>    
+                                <div id='fMessage' class="form-group"> 
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
+                                        </span>
+                                        <input type="text" class="form-control" id="inputMessage" maxlength="50" placeholder="Message">
+                                    </div>
+                                </div>    
+                                <div id='fPhone' class="form-group">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <span class="glyphicon glyphicon-phone" aria-hidden="true"></span>
+                                        </span>
+                                        <input type="text" class="form-control" id="inputPhone" maxlength="9" placeholder="Phone Number">
+                                    </div>
+                                </div>   
+                                <div class="form-group">   
+                                    <div class="inputGroup">
+                                        <select id="inputAction" name="aa" class='form-control' >
+                                            <option value='wear'>Wear Notification </option>
+                                            <option value='normal' selected>Normal Notification </option>
+                                        </select>
+                                    </div>
                                 </div>
                                 <div class="form-group">
                                     <div id='btn_send' class="btn btn-primary" disabled>
